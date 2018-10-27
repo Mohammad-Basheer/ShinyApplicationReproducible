@@ -13,5 +13,5 @@ https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/quakes.html
  
 ## Code on github
 
-https://github.com/JanShim/ShinyApplicationReproducible-Pitch/Part1/
+https://github.com/JanShim/ShinyApplicationReproducible-Pitch/tree/master/Part1
 
