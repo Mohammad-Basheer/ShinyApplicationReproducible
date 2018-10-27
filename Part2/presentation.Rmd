@@ -19,7 +19,6 @@ library(ks)
 
 source('../Part1/MatrixH.R')
 source('../Part1/DrawBandWidth.R')
-source('DrawMap.R')
 
 # There are two clear planes of seismic activity. 
 # One is a major plate junction; the other is the Tonga trench off 
@@ -64,31 +63,42 @@ r <-  1     # radius
 fi <- seq(0, 2*pi, by=2*pi/100)
 circleData <- data.frame(x = r*sin(fi), y=r*cos(fi))
 
-theta <- pi/4
-rx <- 5
-ry <- 9
+```
 
-# bandsidth matrix
-bandWidth <- MatrixH(theta, rx, ry)
+H matrix calculated with ks::Hpi function
+```{r echo=TRUE}
+Hmat <-  ks::Hpi(quakes[,1:2])
+print(Hmat)
+```
 
-data <- as.data.frame(as.matrix(circleData) %*% bandWidth$M %*% t(bandWidth$R))
+and it's bandwidth ellipse 
+```{r echo=FALSE, fig.height=2.5, fig.width=2.5}
+SVD <- svd(solve(Hmat)) 
+
+R <- SVD$v
+M <- solve(diag(SVD$d))
+
+data <- as.data.frame(as.matrix(circleData) %*% M %*% t(R))
 ggplot(data, aes(V2, V1)) + 
       geom_polygon(aes(alpha=.6)) + 
-      coord_fixed(xlim = c(-10,10), ylim = c(-10,10)) +
-      theme_minimal()+
+      coord_fixed(xlim = c(-2,2), ylim = c(-2,2)) +
+      theme_minimal() + 
       theme(axis.title.x=element_blank(),
-            axis.text.x=element_blank(),
-            axis.ticks.x=element_blank(),
+            # axis.text.x=element_blank(),
+            # axis.ticks.x=element_blank(),
             axis.title.y=element_blank(),
-            axis.text.y=element_blank(),
-            axis.ticks.y=element_blank(),
+            # axis.text.y=element_blank(),
+            # axis.ticks.y=element_blank(),
             legend.position="none"
-      )    
+      )
+
 ```
+
+
 
 We can imagine the smoothing matrix size and direction as size and direction of rotated ellipse. 
 
-The longer is ellipse is in direction, more smoother is surface of probability estimation in that direction.
+The longer is ellipse in direction, more smoother is surface of probability estimation in that direction.
 
 </div>
 
