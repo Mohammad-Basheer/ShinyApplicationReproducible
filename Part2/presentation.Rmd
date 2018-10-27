@@ -92,28 +92,19 @@ The longer is ellipse is in direction, more smoother is surface of probability e
 
 </div>
 
-
 # Quakes density estimation: weighted by earthquake magnitude
 
-<div class="col2">
-```{r fig.height=6, fig.width=4}
-theta <- pi/4
-rx <- 1
-ry <- 1
-
-DrawMap(theta, rx, ry, 15)
-
-```
-
-<div>
-You can use checkbox to weight the probability of earthquake by quakes magnitude. 
-</div>
-
-</div>
-
+![](images/pic1.png){height=600}
 
 # Quakes density estimation: not enough smoothing 
 
 ![](images/pic2.png){height=600}
 
 You must increase bandwidth size, to increase smoothness
+
+# Quakes density estimation: oversmoothing 
+
+![](images/pic3.png){height=600}
+
+You must decrease bandwidth size, to decrease smoothness. May be change rotation direction.
+
