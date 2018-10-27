@@ -34,3 +34,9 @@ Here's what you need
  2. It must be 5 pages
  3. It must be hosted on github or Rpubs
  4. It must contained some embedded R code that gets run when slidifying the document
+ 
+ 
+## Here are two parts of assignment
+ 
+ - Part 1: Shiny application [https://janshimkus.shinyapps.io/BandWidth/](https://janshimkus.shinyapps.io/BandWidth/ "https://janshimkus.shinyapps.io/BandWidth/")
+ - Part 2: Presentation [https://janshim.github.io/ShinyApplicationReproducible/Part2/presentation.html](https://janshim.github.io/ShinyApplicationReproducible/Part2/presentation.html)
