@@ -1,0 +1,19 @@
+---
+output: html_fragment
+---
+
+
+![](images/levelN.png)
+
+You can change the number of density levels number visible on the map.
+
+***
+
+![](images/ellipse.png)
+
+You can change the shape and direction of bandwidth probe. This will calculate the according H matrix.
+
+![](images/H.png)
+
+
+

@@ -1,0 +1,16 @@
+
+
+
+<div id="multivariate-kernel-density-estimation-kde" class="section level1">
+<h1>Multivariate Kernel Density Estimation (KDE)</h1>
+<p>Let <span class="math inline">\(\textbf{x}_1, \textbf{x}_2, …, \textbf{x}_n\)</span> be a sample of d-dimension random vectors drawn from a common distribution described by the density function <span class="math inline">\(ƒ(\textbf{x})\)</span>. The kernel density estimate is defined to be</p>
+<p><span class="math display">\[ \hat{f}_{\textbf{H}}(\textbf{x}) = \frac{1}{n} \sum_{i=1}^{n} K_{\textbf{H}}(\textbf{x} - \textbf{x}_i) \]</span></p>
+<ul>
+<li><span class="math inline">\(\textbf{x} = (x_1, x_2, …, x_d)^T, \textbf{x}_i = (x_{i1}, x_{i2}, …, x_{id})^T, i = 1, 2, …, n\)</span> are d-dimension vectors;</li>
+<li><span class="math inline">\(\textbf{H}\)</span> is the bandwidth (or smoothing) d×d matrix which is symmetric and positive definite;</li>
+<li><span class="math inline">\(K_{\textbf{H}}(\textbf{x})\)</span> is the kernel function which is a symmetric multivariate density;</li>
+</ul>
+<p>The choice of the kernel function <span class="math inline">\(K_{\textbf{H}}(\textbf{x})\)</span> is not crucial to the accuracy of kernel density estimators, so we use the standard multivariate normal kernel throughout:</p>
+<p><span class="math display">\[ K_{\textbf{H}}(\textbf{x}) = (2\pi)^{-d/2} |\textbf{H}|^{-1/2} \exp(-\frac{1}{2} \textbf{x}^T  \textbf{H}^{-1} \textbf{x}  ) \]</span> , where <span class="math inline">\(\textbf{H}\)</span> plays the role of the covariance matrix. On the other hand, the choice of the bandwidth matrix <span class="math inline">\(\textbf{H}\)</span> is the single most important factor affecting its accuracy since it controls the amount and orientation of smoothing induced. That the bandwidth matrix also induces an orientation is a basic difference between multivariate kernel density estimation from its univariate analogue since orientation is not defined for one dimensional kernels. This leads to the choice of the parametrisation of this bandwidth matrix.</p>
+</div>
+

@@ -1,0 +1,21 @@
+---
+output: html_fragment
+---
+
+# 2D Kernel Density Estimation
+
+In two dimensional case we can visualize the effects of bandwidth matrix $\textbf{H}$  choice.  To construct $\textbf{H}$ matrix we can use
+
+$$ \textbf{H}^{-1} =  \textbf{R}^T   \textbf{M}^{-1} \textbf{R}  $$
+
+ - $\textbf{R}$ - is rotation matrix by angle $\theta$
+
+![](images/rmatrix.png)
+
+ - $\textbf{M}$ - some scaling diagonal matrix
+
+![](images/mmatrix.png)
+
+And finally we got: $$ \textbf{H} = (\textbf{R}^T   \textbf{M}^{-1} \textbf{R})^{-1} $$
+
+We can visualize bandwidth matrix as rotated ellipse with axis rx, ry and $\theta$. In this shiny application you can choose number of parameters to see effects of bandwidth matrix.
