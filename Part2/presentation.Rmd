@@ -1,0 +1,119 @@
+---
+title: "2D Kernel Density Estimation"
+author: "Jaunius Shimkus"
+date: '27 october 2018'
+output:
+  slidy_presentation: default
+  font_adjustment: -1
+  ioslides_presentation: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+library(leaflet)
+library(data.table)
+library(ggplot2)
+library(RColorBrewer)
+library(ks)
+
+source('../Part1/MatrixH.R')
+source('../Part1/DrawBandWidth.R')
+source('DrawMap.R')
+
+# There are two clear planes of seismic activity. 
+# One is a major plate junction; the other is the Tonga trench off 
+# New Zealand. These data constitute a subsample from a larger dataset 
+# of containing 5000 observations.
+# https://stat.ethz.ch/R-manual/R-devel/library/datasets/html/quakes.html
+
+data(quakes)  # data set
+
+# Format
+# A data frame with 1000 observations on 5 variables.
+# 
+# [,1]	lat	numeric	Latitude of event
+# [,2]	long	numeric	Longitude
+# [,3]	depth	numeric	Depth (km)
+# [,4]	mag	numeric	Richter Magnitude
+# [,5]	stations	numeric	Number of stations reporting
+
+quakes <- as.data.table(quakes)  # convert to data.table
+v <- 10^quakes$mag
+quakes[, weights := v / mean(v) ] # weights by magnitude
+
+```
+
+# Visualization idea
+
+<style>
+  .col2 {
+    columns: 2 150px;         /* number of columns and width in pixels*/
+    -webkit-columns: 2 200px; /* chrome, safari */
+    -moz-columns: 2 200px;    /* firefox */
+  }
+</style>
+
+In the case of a multidimensional kernel estimate, the 2-variable case is easy to visualize and interpret. On the other hand, this case has all the attributes of multidimensional probability estimation. This Shiny application [https://janshimkus.shinyapps.io/BandWidth/](https://janshimkus.shinyapps.io/BandWidth/ "https://janshimkus.shinyapps.io/BandWidth/") helps to understand and try the bandwidth (smoothing) matrix in 2-dimensional case.  
+
+<div class="col2">
+```{r echo=FALSE, fig.height=2.5, fig.width=2.5}
+# ================================================
+# Here are some data describing some circle for elipce draw
+r <-  1     # radius
+fi <- seq(0, 2*pi, by=2*pi/100)
+circleData <- data.frame(x = r*sin(fi), y=r*cos(fi))
+
+theta <- pi/4
+rx <- 5
+ry <- 9
+
+# bandsidth matrix
+bandWidth <- MatrixH(theta, rx, ry)
+
+data <- as.data.frame(as.matrix(circleData) %*% bandWidth$M %*% t(bandWidth$R))
+ggplot(data, aes(V2, V1)) + 
+      geom_polygon(aes(alpha=.6)) + 
+      coord_fixed(xlim = c(-10,10), ylim = c(-10,10)) +
+      theme_minimal()+
+      theme(axis.title.x=element_blank(),
+            axis.text.x=element_blank(),
+            axis.ticks.x=element_blank(),
+            axis.title.y=element_blank(),
+            axis.text.y=element_blank(),
+            axis.ticks.y=element_blank(),
+            legend.position="none"
+      )    
+```
+
+We can imagine the smoothing matrix size and direction as size and direction of rotated ellipse. 
+
+The longer is ellipse is in direction, more smoother is surface of probability estimation in that direction.
+
+</div>
+
+
+# Quakes density estimation: weighted by earthquake magnitude
+
+<div class="col2">
+```{r fig.height=6, fig.width=4}
+theta <- pi/4
+rx <- 1
+ry <- 1
+
+DrawMap(theta, rx, ry, 15)
+
+```
+
+<div>
+You can use checkbox to weight the probability of earthquake by quakes magnitude. 
+</div>
+
+</div>
+
+
+# Quakes density estimation: not enough smoothing 
+
+![](images/pic2.png){height=600}
+
+You must increase bandwidth size, to increase smoothness
